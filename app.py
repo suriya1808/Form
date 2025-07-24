@@ -210,6 +210,48 @@ def get_stats():
     except Exception as e:
         return jsonify({'error': f'Error getting stats: {str(e)}'}), 500
 
+@app.route('/download-excel')
+def download_excel():
+    """Download the Excel file"""
+    try:
+        if not os.path.exists(EXCEL_FILE):
+            return jsonify({'error': 'No Excel file found'}), 404
+        
+        return send_from_directory('.', EXCEL_FILE, as_attachment=True, 
+                                 download_name=f'ai_solutions_responses_{datetime.now().strftime("%Y%m%d_%H%M%S")}.xlsx')
+    except Exception as e:
+        return jsonify({'error': f'Error downloading file: {str(e)}'}), 500
+
+@app.route('/view-data')
+def view_data():
+    """View all submissions in JSON format"""
+    try:
+        if not os.path.exists(EXCEL_FILE):
+            return jsonify({'error': 'No data found', 'submissions': []})
+        
+        workbook = openpyxl.load_workbook(EXCEL_FILE)
+        worksheet = workbook.active
+        
+        # Get headers
+        headers = [cell.value for cell in worksheet[1]]
+        
+        # Get all data rows
+        data = []
+        for row in worksheet.iter_rows(min_row=2, values_only=True):
+            if any(row):  # Skip empty rows
+                row_dict = dict(zip(headers, row))
+                data.append(row_dict)
+        
+        return jsonify({
+            'total_submissions': len(data),
+            'submissions': data,
+            'excel_file': EXCEL_FILE,
+            'last_updated': datetime.fromtimestamp(os.path.getmtime(EXCEL_FILE)).isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Error reading data: {str(e)}'}), 500
+
 @app.errorhandler(404)
 def not_found(error):
     return jsonify({'error': 'Endpoint not found'}), 404
@@ -235,6 +277,8 @@ if __name__ == '__main__':
     print("  GET  /          - Server status")
     print("  POST /submit    - Submit AI solution request")
     print("  GET  /stats     - View statistics")
+    print("  GET  /download-excel - Download Excel file")
+    print("  GET  /view-data  - View data in JSON format")
     print("=" * 50)
     
     # Run the Flask app with production settings for Render

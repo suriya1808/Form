@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Solutions Request Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>AI Solutions Request Form</h1>
+            <p>Please fill out all fields below to submit your AI solution request.</p>
+            
+            <form id="surveyForm">
+                <!-- Question 1: UserName -->
+                <div class="form-group">
+                    <label for="userName">1. UserName</label>
+                    <input type="text" id="userName" name="userName" placeholder="Enter your username" required>
+                </div>
+
+                <!-- Question 2: Email -->
+                <div class="form-group">
+                    <label for="email">2. Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+
+                <!-- Question 3: Employee ID -->
+                <div class="form-group">
+                    <label for="employeeId">3. Employee ID</label>
+                    <input type="text" id="employeeId" name="employeeId" placeholder="Enter your employee ID" required>
+                </div>
+
+                <!-- Question 4: Tower Dropdown -->
+                <div class="form-group">
+                    <label for="tower">4. Tower</label>
+                    <select id="tower" name="tower" required>
+                        <option value="">Select your tower</option>
+                        <option value="Tz">Tz</option>
+                        <option value="EDL">EDL</option>
+                        <option value="ESB">ESB</option>
+                        <option value="EDI">EDI</option>
+                        <option value="Corporate">Corporate</option>
+                        <option value="Legacy Apps">Legacy Apps</option>
+                    </select>
+                </div>
+
+                <!-- Question 5: Problem Dropdown -->
+                <div class="form-group">
+                    <label for="problem">5. Problem</label>
+                    <select id="problem" name="problem" required>
+                        <option value="">Select the problem type</option>
+                        <option value="Incident Solution Recommendation">Incident Solution Recommendation</option>
+                        <option value="Knowledge chatbot">Knowledge chatbot</option>
+                        <option value="Ticket Classification">Ticket Classification</option>
+                        <option value="Dynamic">Dynamic Query Response</option>
+                        <option value="Automated Ticket Auditing">Automated Ticket Auditing</option>
+                        <option value="Code Documentation">Code Documentation</option>
+                        <option value="Sentiment Analysis">Sentiment Analysis</option>
+                        <option value="File Processor for Special Character Corrections">File Processor for Special Character Corrections</option>
+                    </select>
+                </div>
+
+                <!-- Question 6: Business Benefit -->
+                <div class="form-group">
+                    <label for="businessBenefit">6. Business Benefit</label>
+                    <textarea id="businessBenefit" name="businessBenefit" rows="4" placeholder="Describe the business benefit of this solution..." required></textarea>
+                </div>
+
+                <!-- Question 7: Justification/UseCase -->
+                <div class="form-group">
+                    <label for="justification">7. If Not Applicable Give Justification/UseCase</label>
+                    <textarea id="justification" name="justification" rows="4" placeholder="Provide justification or use case details..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Request</button>
+            </form>
+
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
